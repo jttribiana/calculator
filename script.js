@@ -1,21 +1,24 @@
 
 /*populating clicked number to the input screen 
-1. get the input element
-2. get the number input
-3. add value to the number
-3. function that listens what number is click
-4. set it as display input in the calculator
+1. populate the number in the display
+2. fixed the function operate. 
 */
 
-const one = document.getElementById('one');
+
+//shows button value in input
 const input = document.getElementById('input');
-const num = document.getElementById ('numberOperator')
-num.addEventListener ('click', function(e){
-    input.value = (e.target.value);
-    
-})
+const num = document.getElementsByClassName ('num');
 
 
+
+function display (){
+    for( var i=0; i<num.length; i++){
+        num[i].addEventListener ('click', function(e){
+            input.value = (e.target.value);
+    })
+    }
+}
+display ();
 
 
 
