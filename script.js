@@ -1,24 +1,5 @@
 
-/*populating clicked number to the input screen 
-1. populate the number in the display
-2. fixed the function operate. 
-*/
 
-
-//shows button value in input
-const input = document.getElementById('input');
-const num = document.getElementsByClassName ('num');
-
-
-
-function display (){
-    for( var i=0; i<num.length; i++){
-        num[i].addEventListener ('click', function(e){
-            input.value = (e.target.value);
-    })
-    }
-}
-display ();
 
 
 
@@ -38,20 +19,60 @@ function divide (a, b){
     return a / b;
 }
 
+/*
 
-console.log(add (1, 2))
-console.log(subtract (1, 2))
-console.log(multiply (1, 2))
-console.log(divide (1, 2))
+1. make function that takes 3 values to perform operation
+2. doesnt seem to read operator functions above-- find answer
+*/
 
 
-function operate (operation, x, y){
-    operation = {};
-    x = "";
-    y = "";
+function operator (operation, x, y){
+    operation = '+';
+    x = '10';
+    y = '9';
+    if (operation === '+'){
+        add ()
+        console.log(add (x, y))
+    }
 }
+operator();
+
+/*
+
+function display (){
+
+    const input = document.getElementById('input');
+    const num = document.getElementsByClassName ('num');
+
+    for( var i=0; i<num.length; i++){
+        num[i].addEventListener ('click', function(e){
+        return num1 = input.value = (e.target.value);     
+    })
+    }
+}
+display ();
+
+
+*/
 
 
 
 
+
+//operator functions
+
+
+
+
+//for computation and display
+
+
+
+//operations making operations work
+
+
+
+
+
+///test
 
