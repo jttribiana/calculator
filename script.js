@@ -21,21 +21,27 @@ function divide (a, b){
 
 /*
 
-1. make function that takes 3 values to perform operation
-2. doesnt seem to read operator functions above-- find answer
+1. make a function that takes values of an operator, and two numbers like 3 + 5
+2. make the function call to one of the operations above. 
+
+
+create a function that would take parameters like two numbers and one operator
+create variable for these three things
+
 */
 
 
-function operator (operation, x, y){
-    operation = '+';
-    x = '10';
-    y = '9';
+function operator (){
+    let operation = '+';
+    let a = 1;
+    let b = 2;
+
     if (operation === '+'){
-        add ()
-        console.log(add (x, y))
+        return add (a, b);
     }
 }
 operator();
+console.log(operator())
 
 /*
 
