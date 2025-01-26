@@ -26,36 +26,38 @@ function divide (a, b){
     let a = 1;
     let b = 2;
     let operation = '';
-    console.log(operation);
 
 const operators = document.getElementsByClassName('operator');
 
 for( var i=0; i<operators.length; i++){ //using for loop to listen to multiple class button click
     operators[i].addEventListener ('click', function(e){
     operation = (e.target.value);
-})
-};
+    console.log(operation);
 
-function operator (){
-    if (operation === '+'){
-        return add (a, b);
-    } else if (operation === '-'){
-        return subtract (a, b);
-    } else if (operation === '*'){
-        return multiply (a, b);
-    } else if (operation === '/'){
-        return divide (a, b);
-    } 
+    function operator (){
+    
+        if (operation === '+'){
+            return add (a, b);
+        } else if (operation === '-'){
+            return subtract (a, b);
+        } else if (operation === '*'){
+            return multiply (a, b);
+        } else if (operation === '/'){
+            return divide (a, b);
+        } 
+    
+    }
+    operator ();
+    console.log(operator())
+})
 }
-operator();
-console.log(operator())
+
+
 
 
 
 
 //make the number populate to the display
-
-//the input display isnt working when class name has been changed
 
 function display (){
 
