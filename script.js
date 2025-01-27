@@ -1,6 +1,4 @@
 
-//PICK UP > return the operation value from for loop to apply to poerator function
-
 /* calculator operations */
 
 function add (a, b){
@@ -23,18 +21,37 @@ function divide (a, b){
 
 /* this is the variables for operations */
 
-    let a = 1;
-    let b = 2;
-    let operation = '';
+function display (){
+    const input = document.getElementById('input');
+    const num = document.getElementsByClassName('btn');
+    
+
+    for( var i=0; i<num.length; i++){ //using for loop to listen to multiple class button click
+        num[i].addEventListener ('click', function(e){
+        let number = (e.target.value);
+        let numberValue = input.value += number; //populate the number in the display
+        
+        
+        let a = numberValue; // storing in the value to a variable, but populating weirdly in console
+        console.log(a)
+
+
+        let b = 2;
+
+
+//variables & buttons
 
 const operators = document.getElementsByClassName('operator');
+const equalBtn = document.getElementById ('equalBtn');
 
 for( var i=0; i<operators.length; i++){ //using for loop to listen to multiple class button click
     operators[i].addEventListener ('click', function(e){
     operation = (e.target.value);
     console.log(operation);
 
-    function operator (){
+    //operation logic
+    function operate (){
+
     
         if (operation === '+'){
             return add (a, b);
@@ -47,32 +64,23 @@ for( var i=0; i<operators.length; i++){ //using for loop to listen to multiple c
         } 
     
     }
-    operator ();
-    console.log(operator())
+    operate ();
+    console.log(operate());
+    
+
 })
 }
-
-
+})
+}
+}
+display ();
 
 
 
 
 //make the number populate to the display
 
-function display (){
 
-    const input = document.getElementById('input');
-    const num = document.getElementsByClassName('btn');
-    
-
-    for( var i=0; i<num.length; i++){ //using for loop to listen to multiple class button click
-        num[i].addEventListener ('click', function(e){
-        let number = (e.target.value);
-        input.value += number; //populate the number in the display
-    })
-    }
-}
-display ();
 
 
 
