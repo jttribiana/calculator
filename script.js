@@ -26,9 +26,7 @@ function display (){
             } else if (operator !== ''){
                 inputField.value = secondNum += e.target.innerText;
                 console.log(`secondNum: ${secondNum}`)
-
-
-            }
+            } 
         })
     });    
 }
@@ -67,13 +65,18 @@ if (operator !== '='){
                 secondNum === '0';
                 total === add ((parseInt (firstNum)) + (parseInt (secondNum)));
             }*/
-            if (total !== ""){
-                firstNum === total;
+
+            if (secondNum === "" && total === ''){
+                inputField.value = firstNum;
+                
+            } else if (secondNum !== ''){
                 total = add ((parseInt (firstNum)), (parseInt (secondNum)));
                 inputField.value = total;
+                secondNum = '';
+                firstNum = total;
             }
-                /*total = add ((parseInt (firstNum)), (parseInt (secondNum)));
-                inputField.value = total;
+
+            
             
             
             
