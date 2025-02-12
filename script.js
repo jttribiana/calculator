@@ -1,15 +1,16 @@
-//all variables
+
+
 
 let displayedNum = '';
 operator = '';
 firstNum = '';
 secondNum = '';
-operator = '';
 total = '';
 
 const number = document.querySelectorAll ('.btn.num');
 const operation = document.querySelectorAll ('.btn.operator');
 const inputField = document.getElementById ('input');
+const decimalBtn = document.getElementById ('btn num dot');
 
 inputField.value = '';
 
@@ -26,7 +27,9 @@ function display (){
             } else if (operator !== ''){
                 inputField.value = secondNum += e.target.innerText;
                 console.log(`secondNum: ${secondNum}`)
-            } 
+            } else if (e.target.innerText === '.'){
+                decimalBtn.disabled = true;
+            }
         })
     });    
 }
@@ -34,19 +37,52 @@ function display (){
 display ();
 
 
-/* calculator operations */
-function add (firstNum, secondNum){
-    return firstNum + secondNum;
+function calculate(firstNum, secondNum, operator) {
+
+    firstNum = parseFloat(firstNum); 
+    secondNum = parseFloat(secondNum);
+
+    switch (operator) {
+        case '+':
+            return firstNum + secondNum;
+        case '-':
+            return firstNum - secondNum;
+        case '*':
+            return firstNum * secondNum;
+        case '/':
+            if (secondNum === 0) {
+                return "Undefined";
+            }
+            return firstNum / secondNum;
+        default:
+            return NaN; 
 }
-function subtract (firstNum, secondNum) {
-    return ((parseInt (firstNum)) - (parseInt (secondNum)));
 }
-function multiply (firstNum, secondNum){
-    return ((parseInt (firstNum)) * (parseInt (secondNum)));
-}
-function divide (firstNum, secondNum){
-    return ((parseInt (firstNum)) / (parseInt (secondNum)));
-}
+calculate ();
+
+function operate() {
+    operation.forEach(op => {
+      op.addEventListener('click', e => {
+        const currentOperator = e.target.innerText;
+        console.log(`operator: ${currentOperator}`);
+  
+        if (secondNum !== '') {
+          total = calculate(firstNum, secondNum, operator); 
+          inputField.value = total;
+          firstNum = total;
+          operator = currentOperator; 
+          secondNum = '';
+        } else {
+          operator = currentOperator; 
+        }
+      });
+    });
+  }
+  
+  operate();
+
+//things to fix: decimal point, clear, delete button, equal
+/*
 
 function operate (){  
     operation.forEach(op => {
@@ -54,57 +90,37 @@ function operate (){
             operator = e.target.innerText;
             console.log(`operator: ${operator}`);
 
-//if operator is not equal to equal button and total === 0
-if (operator !== '='){
-    switch (operator) {
+    switch (operator){
         case '+':
-            //clg the total (operation)
-            //let total === firstnum 
-            // if secondnum is not present, let secondnum === 0
-            /*if (secondNum === ""){
-                secondNum === '0';
-                total === add ((parseInt (firstNum)) + (parseInt (secondNum)));
-            }*/
-
-            if (secondNum === "" && total === ''){
+            if (secondNum === ''){
                 inputField.value = firstNum;
-                
-            } else if (secondNum !== ''){
+            } else if (secondNum !== '' && operator === '+'){ //make the total as firstnum when total is available so the next entered number becomes second num
                 total = add ((parseInt (firstNum)), (parseInt (secondNum)));
+                inputField.value = total;
+                firstNum = total;
+                secondNum = '';
+            } else if (firstNum !== '' && secondNum !== ''){
+                firstNum = total;
+            }
+            break; 
+        case '-':
+            if (secondNum === ''){
+                inputField.value = firstNum;
+            } else if (secondNum !== ''){ //make the total as firstnum when total is available so the next entered number becomes second num
+                total = subtract ((parseInt (firstNum)), (parseInt (secondNum)));
                 inputField.value = total;
                 secondNum = '';
                 firstNum = total;
+            } else if (secondNum !== '' && operator !== '-'){
+                firstNum = total;
             }
-
+            break;    
+} 
             
-            
-            
-            
-            /*console.log(`total: ${total}`)
-            inputField.value = (total);*/
-            break; 
-
-
-    }
-    
-} /*else if (operator === '=' && operator !== ''){
-    switch (operator) {
-        case '+':
-            displayedNum = '';
-            total = add (firstNum, secondNum);
-            console.log(`total: ${total}`);
-            break;
-            
-    }
-}
-    */
-
 }); 
 });
 }
 operate ();
-
-
 
 
 /*
