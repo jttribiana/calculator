@@ -22,14 +22,19 @@ function display (){
         number.addEventListener('click', e => {
             
             if (operator === ''){
-                inputField.value = firstNum += e.target.innerText;
-                console.log(`firstNum: ${firstNum}`)
+                if (inputField.value.includes ('.')){
+                    inputField.value = firstNum += e.target.innerText;
+                    decimalBtn.disabled = true;
+                    console.log(`firstNum: ${firstNum}`);
+                } else {
+                    inputField.value = firstNum += e.target.innerText;
+                    console.log(`firstNum: ${firstNum}`);
+                }
+
             } else if (operator !== ''){
                 inputField.value = secondNum += e.target.innerText;
                 console.log(`secondNum: ${secondNum}`)
-            } else if (e.target.innerText === '.'){
-                decimalBtn.disabled = true;
-            }
+            } 
         })
     });    
 }
@@ -54,6 +59,12 @@ function calculate(firstNum, secondNum, operator) {
                 return "Undefined";
             }
             return firstNum / secondNum;
+        case '=': 
+            if (secondNum === '' ){
+                return firstNum;
+            } else if (operator === '='){
+                return secondNum;
+            } else calculate ();
         default:
             return NaN; 
 }
