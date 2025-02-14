@@ -13,9 +13,11 @@ const inputField = document.getElementById ('input');
 const decimalBtn = document.querySelector ('.btn.num.dot');
 const clearBtn = document.querySelector ('.btn.clear');
 const deleteBtn = document.querySelector ('.btn.delete');
+const negativeBtn = document.querySelector ('.btn.negative');
 
 
-inputField.value = '';
+
+inputField.value = '0';
 
 
 //getting the numbers
@@ -26,9 +28,8 @@ function display (){
             
             if (operator === ''){
                 if (e.target.innerText.includes ('.')){
+                    inputField.value = firstNum += e.target.innerText;
                     decimalBtn.disabled = true;
-                    inputField.value = firstNum += e.target.innerText;
-                    inputField.value = firstNum += e.target.innerText;
                     console.log(`firstNum: ${firstNum}`);
                 } else {
                     inputField.value = firstNum += e.target.innerText;
@@ -36,8 +37,14 @@ function display (){
                 }
 
             } else if (operator !== ''){
-                inputField.value = secondNum += e.target.innerText;
-                console.log(`secondNum: ${secondNum}`)
+                if (e.target.innerText.includes ('.')){
+                    inputField.value = secondNum += e.target.innerText;
+                    decimalBtn.disabled = true;
+                    console.log(`secondNum: ${secondNum}`);
+                } else {
+                    inputField.value = secondNum += e.target.innerText;
+                    console.log(`secondNum: ${secondNum}`)
+                }
             } 
         })
     });    
@@ -45,6 +52,18 @@ function display (){
 
 display ();
 
+
+negativeBtn.addEventListener ('click', negativeSign);
+
+function negativeSign (){
+    if (operator === ''){
+        inputField.value = firstNum = `-${firstNum}`;
+        console.log(firstNum);
+    } else if (operator !== ''){
+        inputField.value = secondNum = `-${secondNum}`;
+        console.log(secondNum);
+    }
+}
 
 clearBtn.addEventListener ('click', clearFunction);
 
@@ -71,6 +90,7 @@ function deleteFunction (){
         console.log(operator)
 }
 
+
 function calculate(firstNum, secondNum, operator) {
 
     firstNum = parseFloat(firstNum); 
@@ -80,7 +100,13 @@ function calculate(firstNum, secondNum, operator) {
         case '+':
             return firstNum + secondNum;
         case '-':
-            return firstNum - secondNum;
+            if (firstNum === ''){
+                inputField.value = '-';
+                operator = '';
+            } else if (secondNum === ''){
+                inputField.value += e.target.innerText;
+                operator = '';
+            } else return firstNum - secondNum;
         case '*':
             return firstNum * secondNum;
         case '/':
@@ -112,9 +138,8 @@ function operate() {
           firstNum = total;
           operator = currentOperator; 
           secondNum = '';
-        } else {
-          operator = currentOperator; 
-        }
+        } else operator = currentOperator; 
+    
       });
     });
   }
@@ -122,7 +147,8 @@ function operate() {
   operate();
 
 /* things to fix 
-1. Decimal point
-2. Negative sign
 3. UI
+4. round answer with long decimals
+5. percent button 
+6. negatvie sign if clicked once or twice
 */
