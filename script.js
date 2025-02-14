@@ -10,7 +10,10 @@ total = '';
 const number = document.querySelectorAll ('.btn.num');
 const operation = document.querySelectorAll ('.btn.operator');
 const inputField = document.getElementById ('input');
-const decimalBtn = document.getElementById ('btn num dot');
+const decimalBtn = document.querySelector ('.btn.num.dot');
+const clearBtn = document.querySelector ('.btn.clear');
+const deleteBtn = document.querySelector ('.btn.delete');
+
 
 inputField.value = '';
 
@@ -22,9 +25,10 @@ function display (){
         number.addEventListener('click', e => {
             
             if (operator === ''){
-                if (inputField.value.includes ('.')){
-                    inputField.value = firstNum += e.target.innerText;
+                if (e.target.innerText.includes ('.')){
                     decimalBtn.disabled = true;
+                    inputField.value = firstNum += e.target.innerText;
+                    inputField.value = firstNum += e.target.innerText;
                     console.log(`firstNum: ${firstNum}`);
                 } else {
                     inputField.value = firstNum += e.target.innerText;
@@ -41,6 +45,31 @@ function display (){
 
 display ();
 
+
+clearBtn.addEventListener ('click', clearFunction);
+
+function clearFunction (){
+    inputField.value = '';
+    firstNum = '';
+    secondNum = '';
+    operator = '';
+}
+
+deleteBtn.addEventListener ('click', deleteFunction);
+
+function deleteFunction (){
+    if (operator === ''){
+        inputField.value = inputField.value.slice(0, -1);
+        firstNum = firstNum.slice (0, -1);
+        console.log(firstNum);
+    } else if (operator !== '' && secondNum !== ''){
+        inputField.value = inputField.value.slice(0, -1);
+        secondNum = secondNum.slice (0, -1);
+        console.log(secondNum);
+    } else 
+        operator = operator.slice (0, -1);
+        console.log(operator)
+}
 
 function calculate(firstNum, secondNum, operator) {
 
@@ -92,134 +121,8 @@ function operate() {
   
   operate();
 
-//things to fix: decimal point, clear, delete button, equal
-/*
-
-function operate (){  
-    operation.forEach(op => {
-        op.addEventListener('click', e => {
-            operator = e.target.innerText;
-            console.log(`operator: ${operator}`);
-
-    switch (operator){
-        case '+':
-            if (secondNum === ''){
-                inputField.value = firstNum;
-            } else if (secondNum !== '' && operator === '+'){ //make the total as firstnum when total is available so the next entered number becomes second num
-                total = add ((parseInt (firstNum)), (parseInt (secondNum)));
-                inputField.value = total;
-                firstNum = total;
-                secondNum = '';
-            } else if (firstNum !== '' && secondNum !== ''){
-                firstNum = total;
-            }
-            break; 
-        case '-':
-            if (secondNum === ''){
-                inputField.value = firstNum;
-            } else if (secondNum !== ''){ //make the total as firstnum when total is available so the next entered number becomes second num
-                total = subtract ((parseInt (firstNum)), (parseInt (secondNum)));
-                inputField.value = total;
-                secondNum = '';
-                firstNum = total;
-            } else if (secondNum !== '' && operator !== '-'){
-                firstNum = total;
-            }
-            break;    
-} 
-            
-}); 
-});
-}
-operate ();
-
-
-/*
-
-
-
-
-
-number.forEach (number => {
-    number.addEventListener('click', e => {
-        let innerText = e.target.innerText;
-        if (operator === ''){
-            inputField.value = firstNum += innerText;
-            console.log(`firstNum: ${firstNum}`);
-        } else if (operator !== '' && firstNum !== '' && result === '0') {
-            inputField.value = secondNum += innerText;
-        }  else if (operator !== '' && firstNum !== '' && result === '0') {
-            inputField.value = secondNum += innerText;
-        } else if (operator !== '' && result !== ''){
-            result = firstNum
-            secondNum = '';
-        }
-    })
-});
-
-
-operators.forEach(op => {
-    op.addEventListener('click', e => {
-        if (e.target.innerText === '+'){
-            operator = e.target.innerText;
-            result = (parseInt(firstNum) + parseInt (secondNum));
-
-
-
-            console.log(`firstNum: ${firstNum}`)
-            console.log(`operator: ${operator}`)
-            console.log(`secondNum: ${secondNum}`)
-            console.log(`result: ${result}`)
-
-
-
-        } 
-    });
-});
-
-
-/*
-
-operators.forEach(op => {
-    op.addEventListener('click', e => {
-        if (e.target.innerText !== '='){
-            operator = e.target.innerText;
-
-            console.log(`firstNum: ${firstNum}`)
-            console.log(`operator: ${operator}`)
-
-        } else {
-            console.log(`secondNum: ${secondNum}`);
-
-            switch (operator){
-                case '+':
-                    console.log(parseInt(firstNum)+ parseInt (secondNum));
-                    inputField.value = (parseInt(firstNum)+ parseInt (secondNum));
-                    firstNum = (parseInt(firstNum)+ parseInt (secondNum));
-                    secondNum = '';
-                    break;
-                case '-':
-                    console.log(parseInt(firstNum)- parseInt (secondNum));
-                    inputField.value = (parseInt(firstNum) - parseInt (secondNum));
-                    secondNum = '';
-                    break;        
-                case '*':
-                    console.log(parseInt(firstNum)* parseInt (secondNum));
-                    inputField.value = (parseInt(firstNum)* parseInt (secondNum));
-                    secondNum = '';
-                    break;
-                case '/':
-                    console.log(parseInt(firstNum)/ parseInt (secondNum));
-                    inputField.value = (parseInt(firstNum)/ parseInt (secondNum));
-                    secondNum = '';
-                    break;
-            }
-        }
-    });
-});
-
-
-
+/* things to fix 
+1. Decimal point
+2. Negative sign
+3. UI
 */
-
-
