@@ -14,6 +14,7 @@ const decimalBtn = document.querySelector ('.btn.num.dot');
 const clearBtn = document.querySelector ('.btn.clear');
 const deleteBtn = document.querySelector ('.btn.delete');
 const negativeBtn = document.querySelector ('.btn.negative');
+const percentBtn = document.querySelector ('.btn.percent');
 
 
 
@@ -53,9 +54,9 @@ function display (){
 display ();
 
 
-negativeBtn.addEventListener ('click', negativeSign);
-
-function negativeSign (){
+//negative button
+negativeBtn.addEventListener ('click', negativeFunction);
+function negativeFunction (){
     if (operator === ''){
         inputField.value = firstNum = `-${firstNum}`;
         console.log(firstNum);
@@ -65,8 +66,9 @@ function negativeSign (){
     }
 }
 
-clearBtn.addEventListener ('click', clearFunction);
 
+//clear button
+clearBtn.addEventListener ('click', clearFunction);
 function clearFunction (){
     inputField.value = '';
     firstNum = '';
@@ -74,8 +76,9 @@ function clearFunction (){
     operator = '';
 }
 
-deleteBtn.addEventListener ('click', deleteFunction);
 
+//delete button
+deleteBtn.addEventListener ('click', deleteFunction);
 function deleteFunction (){
     if (operator === ''){
         inputField.value = inputField.value.slice(0, -1);
@@ -91,12 +94,28 @@ function deleteFunction (){
 }
 
 
+//getting percent value
+percentBtn.addEventListener ('click', percentFunction);
+function percentFunction (){
+    if (operator === ''){
+        inputField.value = `${firstNum}%`;
+        firstNum = firstNum/100;
+        console.log(firstNum);
+    } else if (operator !== ''){
+        inputField.value = `${secondNum}%`;
+        secondNum = secondNum/100;
+        console.log(secondNum);
+    }
+}
+
+
+//logic for calculation
 function calculate(firstNum, secondNum, operator) {
 
     firstNum = parseFloat(firstNum); 
     secondNum = parseFloat(secondNum);
 
-    switch (operator) {
+    switch (operator){
         case '+':
             return firstNum + secondNum;
         case '-':
@@ -112,8 +131,7 @@ function calculate(firstNum, secondNum, operator) {
         case '/':
             if (secondNum === 0) {
                 return "Undefined";
-            }
-            return firstNum / secondNum;
+            } return firstNum / secondNum;
         case '=': 
             if (secondNum === '' ){
                 return firstNum;
@@ -126,7 +144,7 @@ function calculate(firstNum, secondNum, operator) {
 }
 calculate ();
 
-function operate() {
+function operate(){
     operation.forEach(op => {
       op.addEventListener('click', e => {
         const currentOperator = e.target.innerText;
@@ -139,16 +157,13 @@ function operate() {
           operator = currentOperator; 
           secondNum = '';
         } else operator = currentOperator; 
-    
       });
     });
   }
-  
   operate();
 
 /* things to fix 
 3. UI
 4. round answer with long decimals
 5. percent button 
-6. negatvie sign if clicked once or twice
 */
