@@ -1,6 +1,3 @@
-
-
-
 let displayedNum = '';
 operator = '';
 firstNum = '';
@@ -15,14 +12,9 @@ const clearBtn = document.querySelector ('.btn.clear');
 const deleteBtn = document.querySelector ('.btn.delete');
 const negativeBtn = document.querySelector ('.btn.negative');
 const percentBtn = document.querySelector ('.btn.percent');
-
-
-
 inputField.value = '0';
 
-
-//getting the numbers
-
+//getting the numbers value and showing display
 function display (){
     number.forEach (number => {
         number.addEventListener('click', e => {
@@ -55,14 +47,28 @@ display ();
 
 
 //negative button
+
+let clickCount = 0;
+
 negativeBtn.addEventListener ('click', negativeFunction);
 function negativeFunction (){
-    if (operator === ''){
-        inputField.value = firstNum = `-${firstNum}`;
-        console.log(firstNum);
-    } else if (operator !== ''){
-        inputField.value = secondNum = `-${secondNum}`;
-        console.log(secondNum);
+    clickCount++;
+    if (clickCount % 2 !== 0){
+        if (operator === ''){
+            inputField.value = firstNum = `-${firstNum}`;
+            console.log(firstNum);
+        } else if (operator !== ''){
+            inputField.value = secondNum = `-${secondNum}`;
+            console.log(secondNum);
+        } 
+    } else if (clickCount % 2 === 0){
+        if (operator === ''){
+            inputField.value = firstNum = firstNum.substring(1);
+            console.log(firstNum);
+        } else if (operator !== ''){
+            inputField.value = secondNum = secondNum.substring(1);
+            console.log(secondNum);
+        } 
     }
 }
 
@@ -119,13 +125,7 @@ function calculate(firstNum, secondNum, operator) {
         case '+':
             return firstNum + secondNum;
         case '-':
-            if (firstNum === ''){
-                inputField.value = '-';
-                operator = '';
-            } else if (secondNum === ''){
-                inputField.value += e.target.innerText;
-                operator = '';
-            } else return firstNum - secondNum;
+            return firstNum - secondNum;
         case '*':
             return firstNum * secondNum;
         case '/':
@@ -152,8 +152,8 @@ function operate(){
   
         if (secondNum !== '') {
           total = calculate(firstNum, secondNum, operator); 
-          inputField.value = total;
-          firstNum = total;
+          inputField.value = total.toFixed(2);
+          firstNum = total.toFixed(2);
           operator = currentOperator; 
           secondNum = '';
         } else operator = currentOperator; 
@@ -161,9 +161,3 @@ function operate(){
     });
   }
   operate();
-
-/* things to fix 
-3. UI
-4. round answer with long decimals
-5. percent button 
-*/
